@@ -1,11 +1,15 @@
-const express = require('express');
-const app = express();
-const PORT = 2001;
+const mc = require('minecraft-protocol');
 
-app.use(express.static('public'));
-
-app.get('/', (req, res) => {
-    res.send('Bom dia Pikas');
+const server = mc.createServer({
+  'online-mode': true,
+  encryption: true,
+  host: '66.11.123.132',
+  port: 2001,
+  version: '1.16.5'
 });
 
-app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`));
+server.on('login', function(client) {
+  console.log(client.username + ' entrou no servidor!');
+});
+
+console.log('Servidor Minecraft rodando na porta 2001.');
